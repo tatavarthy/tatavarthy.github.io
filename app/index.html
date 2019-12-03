@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <!--build:css css/styles.min.css-->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/print.css">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <!--endbuild-->
+</head>
+
+<body>
+  
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <!--build:js js/main.min.js -->
+  <script src="js/lib/angular.js"></script>
+  <script src="js/lib/app.js"></script>
+  <script src="js/lib/bootstrap.js"></script>
+  <script src="js/main.js"></script>
+  <!-- endbuild -->
+
+  <div ng-app="myApp" ng-controller="myCtrl">
+      <div class="clearfix"></div>
+      <div class="container" >
+          <div class="col-md-8 col-md-offset-2 margin-top margin-bottom">
+          <p class="text-left col-md-3">All Items </p>
+          <div class="text-center center-block green-bckg col-md-5" ng-show="showMsg">{{cartItem.name}} is added to the cart</div>
+          <a href="#" class="col-md-2 pull-right notification" ng-click="showSummary = true">
+            <span>Go to Cart</span>
+            <span class="badge" ng-show="cart.length>0">{{cart.length}}</span>
+          </a>
+      </div>
+        <div class="clearfix"></div>
+        <div class="col-md-10 col-md-offset-2">
+           <div class="col-md-3 border-grey  margin-top" ng-repeat="tile in tiles">
+              <div class="">
+                 <img class="center-block text-center" ng-src="{{tile.img_url}}" alt="Book Cover Not Available" on-error="images/error.jpg" />
+                 <br> 
+              </div>
+              <p class="footer">
+                  <span class="pull-left"> {{tile.name}}: $ {{tile.price}}</span>
+                  <button class="btn btn-default btn-sm pull-right" ng-click="addToCart($event)" id="{{tile.id}}">Add to Cart</button>
+                 </p>
+              <br>
+           </div>
+         </div>
+       </div>
+        <div class="clearfix"></div>
+        
+        <div id="order-summary" ng-show="showSummary">
+          <div class="container">
+            <div class="col-md-5 col-md-offset-2">
+              <h3 >Order Summary</h3>
+              <table class="table table-bordered">
+                <thead>
+                  <th>Items ({{cart.length}})</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                </thead>
+                <tbody>
+                  <tr ng-repeat="item in cart">
+                    <td>{{item.name}}</td>
+                    <td>
+                      <div ng-init="total=0">
+                          <button class="btn btn-default" id="{{item.id}}" ng-click="increment($event)">
+                              +
+                          </button>
+                          <input type="text"  style="width:30px" ng-model="item.quantity" />
+
+                          <button class="btn btn-default" id="{{item.id}}" ng-click="decrement($event)">
+                              -
+                          </button>
+                      <div>
+                    </td>
+                    <td> $ {{item.price * item.quantity}}</td>
+                  </tr>
+                </tbody>
+              </table>
+          </div>
+          <div class="col-md-3 margin-top">
+            <table class="table table-bordered">
+              <thead >
+                <th><strong>Total</strong></th>
+                <th></th>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Items ({{cart.length}}) :</td>
+                  <td>{{cost}}</td>
+                </tr>
+                <tr>
+                  <td>Discount :</td>
+                  <td></td>
+                </tr>
+                <tr>
+                  <td>Order Total</td>
+                  <td>{{cost}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      </div>
+</body>
+
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title></title>
+  <link rel="stylesheet" href="css/styles.min.css">
+</head>
+
+<body>
+  
+  
+  <script src="js/main.min.js"></script>
+
+  <div ng-app="myApp" ng-controller="myCtrl">
+
+      <a class="btn btn-primary pull-right" href="#!order-summary">Go to Cart</a>
+      <div class="clearfix"></div>
+      <p ng-show="showMsg">{{cartItem.name}} is added to the cart</p>
+         <div class="col-md-4 border-red" ng-repeat="tile in tiles">
+          <div >
+            <p>Name : {{tile.name}}</p>
+            <p>Price : {{tile.price}}</p>
+            <p>Type: {{tile.type}}</p>
+            <p>ID: {{tile.id}}</p>
+            <img ng-src="{{tile.img_url}}" />
+            <div>
+              <button ng-click="addToCart($event)" id="{{tile.id}}">Add to Cart</button>
+             </div>
+           </div>
+           
+
+         </div>
+         <div class="clearfix"></div>
+        
+         <div ng-show="true">
+          
+        <h3 >Order Summary</h3>
+        <table>
+          <thead>
+            <th>Item</th>
+            <th>Quantiy</th>
+            <th>Price</th>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in cart">
+
+              <td>{{item.name}}</td>
+              <td>
+                <div ng-init="total=0">
+                    <button id="{{item.id}}" ng-click="increment($event)">
+                        +
+                    </button>
+                    <input type="text" style="width:30px" ng-model="item.quantity" />
+
+                    <button id="{{item.id}}" ng-click="decrement($event)">
+                        -
+                    </button>
+                <div>
+              </td>
+              <td>{{item.price * item.quantity}}</td>
+              <!-- <input type="text" id="totalCost" ng-model="cost" value="{{item.price * count}} + {{cost}}"/> -->
+            </tr>
+          </tbody>
+        </table>
+        <p>Total Cost = {{cost}}</p>
+        
+        
+      </div>
+      </div>
+</body>
+
+</html>
